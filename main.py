@@ -5,7 +5,7 @@ expenses = []
 categories = ['Food', 'Transport', 'Entertainment', 'Healthcare', 'Other']
 
 print(logo)
-print("Welcome to your expense tracker")
+print("Welcome to your expense tracker!\n")
 
 def add_expense():
     """Asks the user for expense name, amount, date and category and adds it to the expense list"""
@@ -25,11 +25,12 @@ def show_expenses():
     asks the user for an action and calls the corresponding function"""
 
     if not expenses:
-        user_choice = str(input("You don't have any expenses saved yet. Would you like to add one? Type 'Y' to add or 'N' to exit.\n")).lower()
+        user_choice = str(input("\nYou don't have any expenses saved yet. Would you like to add one? Type 'Y' to add or 'N' to exit.\n")).lower()
         if user_choice == "y":
             add_expense()
         else:
             exit_program()
+            return
 
     print(
         tabulate(
@@ -54,19 +55,29 @@ def remove_expense():
     else:
         index = int(user_choice) - 1
         expenses.pop(index)
-        print(f"Expense removed successfully!")
+        print(f"\nExpense removed successfully!")
         show_expenses()
 
-# def calculate_total():
+def calculate_total():
+    """Calculates the total amount spent and prints it in the terminal"""
+    total = 0
+
+    for item in expenses:
+        total += item[1]
+
+    print(f"\nYour total expenses are € {total:.2f}.\n")
+    show_expenses()
 #
 # def save_file():
 #
 def exit_program():
-    print("Thanks for using Expense Tracker!")
+    """Exits the program and displays a thank-you message in the terminal"""
+    print("\nThanks for using Expense Tracker!")
 
 functions = {
     "add": add_expense,
     "remove": remove_expense,
+    "total": calculate_total,
     "exit": exit_program,
 }
 
